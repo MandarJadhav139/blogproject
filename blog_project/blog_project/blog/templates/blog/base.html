@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+      integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+      integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+      crossorigin="anonymous"
+    />
+
+    <script src="//cdn.jsdelivr.net/npm/medium-editor@latest/dist/js/medium-editor.min.js"></script>
+    <link
+      rel="stylesheet"
+      href="//cdn.jsdelivr.net/npm/medium-editor@latest/dist/css/medium-editor.min.css"
+      type="text/css"
+      media="screen"
+      charset="utf-8"
+    />
+
+    <link rel="stylesheet" href="{% static 'css/blog.css' %}" />
+
+    <title>BLOG</title>
+  </head>
+  <body class="loader">
+    <nav class="navbar navbar-expand-sm navbar-default navbar-static-top mb-3">
+      <div class="container">
+        <ul class="nav navbar-nav">
+          <li class="nav-item">
+            <a href="{% url 'post_list' %}" class="nav-link">MY BLOG</a>
+          </li>
+          <li class="nav-item">
+            <a href="{% url 'about' %}" class="nav-link">ABOUT</a>
+          </li>
+        </ul>
+        <ul class="nav navbar-nav ml-auto">
+          {% if user.is_authenticated %}
+          <li class="nav-item">
+            <a href="{% url 'post_new' %}" class="nav-link">NEW POST</a>
+          </li>
+          <li class="nav-item">
+            <a href="{% url 'drafts' %}" class="nav-link">DRAFTS</a>
+          </li>
+          <li class="nav-item">
+            <a href="{% url 'logout' %}" class="nav-link">LOG OUT</a>
+          </li>
+          {% else %}
+          <li class="nav-item">
+            <a href="{%url 'login'%}" class="nav-link"
+              ><span class="glyphicon glyphicon-user"></span
+            ></a>
+          </li>
+
+          {% endif %}
+        </ul>
+      </div>
+    </nav>
+
+    <div class="content container">
+      <div class="row">
+        <div class="col-md-8">
+          <div class="blog_posts">
+            {% block content %} {% endblock %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
